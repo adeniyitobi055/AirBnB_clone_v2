@@ -7,13 +7,13 @@ from models.engine.file_storage import FileStorage
 
 
 def clear_stream(stream: TextIO):
-        """Clears the contents of a given stream
-        Args:
-            stream (TextIO): The stream to clear.
-        """
-        if stream.seekable():
-            stream.seek(0)
-            stream.truncate(0)
+    """Clears the contents of a given stream
+       Args:
+       stream (TextIO): The stream to clear.
+     """
+    if stream.seekable():
+        stream.seek(0)
+        stream.truncate(0)
 
 
 def delete_file(file_path: str):
@@ -61,4 +61,3 @@ def write_text_file(file_name, text):
     """
     with open(file_name, mode='w') as file:
         file.write(text)
-
