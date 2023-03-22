@@ -5,9 +5,12 @@ import unittest
 import os
 import json
 import pycodestyle
+import pep8
+import tests
 from io import StringIO
 from console import HBNBCommand
 from models.engine.file_storage import FileStorage
+from models.base_model import BaseModel
 from unittest.mock import patch
 from models.user import User
 from models.place import Place
