@@ -2,19 +2,22 @@
 """ Unittest module for the console """
 
 import unittest
+from unittest.mock import patch
+from io import StringIO
+import pep8
 import os
 import json
-import pycodestyle
-from io import StringIO
+import console
+import tests
 from console import HBNBCommand
-from models.engine.file_storage import FileStorage
-from unittest.mock import patch
+from models.base_model import BaseModel
 from models.user import User
-from models.place import Place
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
+from models.place import Place
 from models.review import Review
+from models.engine.file_storage import FileStorage
 
 
 class TestCommand(unittest.TestCase):

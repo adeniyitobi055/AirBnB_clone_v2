@@ -7,19 +7,19 @@ from models.engine.file_storage import FileStorage
 
 
 def clear_stream(stream: TextIO):
-        """Clears the contents of a given stream
-        Args:
-            stream (TextIO): The stream to clear.
-        """
-        if stream.seekable():
-            stream.seek(0)
-            stream.truncate(0)
+    """Clears the contents of a given stream
+       Args:
+       stream (TextIO): The stream to clear.
+    """
+    if stream.seekable():
+        stream.seek(0)
+        stream.truncate(0)
 
 
 def delete_file(file_path: str):
     """Removes a file if it exists.
-    Args:
-        file_path (str): The name of the file to remove.
+      Args:
+       file_path (str): The name of the file to remove.
     """
     if os.path.isfile(file_path):
         os.unlink(file_path)
@@ -27,9 +27,9 @@ def delete_file(file_path: str):
 
 def reset_store(store: FileStorage, file_path='file.json'):
     """Resets the items in the given store.
-    Args:
-        store (FileStorage): The FileStorage to reset.
-        file_path (str): The path to the store's file.
+       Args:
+       store (FileStorage): The FileStorage to reset.
+       file_path (str): The path to the store's file.
     """
     with open(file_path, mode='w') as file:
         file.write('{}')
@@ -40,7 +40,7 @@ def reset_store(store: FileStorage, file_path='file.json'):
 def read_text_file(file_name):
     """Reads the contents of a given file.
     Args:
-        file_name (str): The name of the file to read.
+       file_name (str): The name of the file to read.
 
     Returns:
     str: The contents of the file if it exists.
@@ -61,4 +61,3 @@ def write_text_file(file_name, text):
     """
     with open(file_name, mode='w') as file:
         file.write(text)
-
