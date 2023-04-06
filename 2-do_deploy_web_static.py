@@ -2,7 +2,7 @@
 """
 2-do_deploy_web_static module
 """
-from fabric.api import *
+from fabric.api import env, put, run
 from datetime import datetime
 from os import path
 
@@ -25,8 +25,8 @@ def do_deploy(archive_path):
 
         # create target directory
         timestamp = archive_path[-18:-4]
-        run('sudo mkdir -p /data/web_static/\
-            releases/web_static_{}/'.format(timestamp))
+        run('sudo mkdir -p /data/web_static/releases/web_static_{}/'
+            .format(timestamp))
 
         # uncompress the archive and delete .tgz
         run('sudo tar -xzf /tmp/web_static_{}.tgz -C \
@@ -51,8 +51,6 @@ def do_deploy(archive_path):
         # re-establish sym link
         run('sudo ln -s /data/web_static/releases/web_static_{}/ \
             /data/web_static/current'.format(timestamp))
-    except:
+        return True
+    except Exception:
         return False
-
-    # return True on success
-    return True
