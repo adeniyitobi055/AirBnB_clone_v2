@@ -51,7 +51,7 @@ def do_deploy(archive_path):
         # re-establish sym link
         run('sudo ln -s /data/web_static/releases/web_static_{}/ \
             /data/web_static/current'.format(timestamp))
-    except Exception as e:
+    except:
         return False
 
     # return True on success
