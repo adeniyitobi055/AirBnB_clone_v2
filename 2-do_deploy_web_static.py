@@ -42,7 +42,7 @@ def do_deploy(archive_path):
             .format(timestamp, timestamp))
 
         # remove irrelevant web_static dir
-        run('sudo rm -rf /data/web_static/creleases/\
+        run('sudo rm -rf /data/web_static/releases/\
             web_static_{}/web_static'.format(timestamp))
 
         # delete pre-existing sym link
