@@ -36,7 +36,7 @@ class DBStorage:
     def all(self, cls=None):
         """ query and return all """
         if not self.__session:
-            self.reload()
+            self.close()
         dic = {}
         if cls:
             if type(cls) is str:
