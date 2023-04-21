@@ -43,8 +43,6 @@ class DBStorage:
 
     def all(self, cls=None):
         """ query and return all """
-        if self.__session:
-            self.close()
         objects = {}
         if type(cls) == str:
             cls = name2class.get(cls, None)
@@ -67,8 +65,6 @@ class DBStorage:
 
     def delete(self, obj=None):
         """ delete from current database session """
-        if not self.session:
-            self.reload()
         if obj:
             self.session.delete(obj)
 
@@ -80,4 +76,4 @@ class DBStorage:
 
     def close(self):
         """ Remove current session if active """
-        self.__session.remove()
+        self.__session.close()
