@@ -3,7 +3,6 @@
 from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
 from models.state import State
 from models.city import City
@@ -11,6 +10,15 @@ from models.user import User
 from models.place import Place
 from models.amenity import Amenity
 from models.review import Review
+from sqlalchemy.orm import sessionmaker, scoped_session
+name2class = {
+    'Amenity': Amenity,
+    'City': City,
+    'State': State,
+    'Review': Review,
+    'Place': Place,
+    'User': User
+}
 
 
 class DBStorage:
@@ -37,22 +45,17 @@ class DBStorage:
         """ query and return all """
         if not self.__session:
             self.reload()
-        dic = {}
+        objects = {}
+        if type(cls) == str:
+            cls = name2class.get(cls, None)
         if cls:
-            if type(cls) is str:
-                cls = eval(cls)
-            query = self.__session.query(cls)
-            for elem in query:
-                key = "{}.{}".format(type(elem).__name__, elem.id)
-                dic[key] = elem
+            for obj in self.__session.query(cls):
+                objects[obj.__class__.__name__ + '.' + obj.id] = obj
         else:
-            lista = [State, City, User, Place, Review, Amenity]
-            for clase in lista:
-                query = self.__session.query(clase)
-                for elem in query:
-                    key = "{}.{}".format(type(elem).__name__, elem.id)
-                    dic[key] = elem
-        return (dic)
+            for cls in name2class.values():
+                for obj in self.__session.query(cls):
+                    objects[obj.__class__.__name__ + '.' + obj.id] = obj
+        return objects
 
     def new(self, obj):
         """ add object to the current database session """
