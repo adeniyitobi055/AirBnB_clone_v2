@@ -44,7 +44,7 @@ class DBStorage:
     def all(self, cls=None):
         """ query and return all """
         if not self.__session:
-            self.reload()
+            self.close()
         objects = {}
         if type(cls) == str:
             cls = name2class.get(cls, None)
