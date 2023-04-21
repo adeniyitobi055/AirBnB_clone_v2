@@ -36,7 +36,7 @@ class DBStorage:
     def all(self, cls=None):
         """ query and return all """
         if not self.__session:
-            self.close()
+            self.reload()
         dic = {}
         if cls:
             if type(cls) is str:
@@ -64,6 +64,8 @@ class DBStorage:
 
     def delete(self, obj=None):
         """ delete from current database session """
+        if not self.session:
+            self.reload()
         if obj:
             self.session.delete(obj)
 
