@@ -35,6 +35,8 @@ class DBStorage:
 
     def all(self, cls=None):
         """ query and return all """
+        if not sefl.__session:
+            self.reload()
         dic = {}
         if cls:
             if type(cls) is str:
