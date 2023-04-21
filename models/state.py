@@ -10,25 +10,22 @@ import shlex
 
 class State(BaseModel, Base):
     """ State class """
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
-        __tablename__ = "states"
-        name = Column(String(128), nullable=False)
-        cities = relationship("City", cascade='all, delete',
-                              backref="state")
-    else:
-        name = ""
+    __tablename__ = "states"
+    name = Column(String(128), nullable=False)
+    cities = relationship("City", cascade='all, delete, delete-orphan',
+                          backref="state")
 
-    def __init__(self, *args, **kwargs):
-        """ Initializes state """
-        super().__init__(*args, **kwargs)
-
-    if getenv('HBNB_TYPE_STORAGE') != 'db':
-        @property
-        def cities(self):
-            """ fs getter that returns City instances """
-            values_city = models.storage.all("City").values()
-            list_city = []
-            for city in values_city:
-                if (city.state_id == self.id):
-                    list_city.append(city)
-            return list_city
+    @property
+    def cities(self):
+        values_city = models.storage.all()
+        list_city = []
+        result = []
+        for key in values_city:
+            city = key.replace('.', ' ')
+            city = shlex.split(city)
+            if (city[0] == 'City'):
+                list_city.append(values_city[key])
+        for elem in list_city:
+            if (elem.state_id == self.id):
+                result.append(elem)
+        return (result)
