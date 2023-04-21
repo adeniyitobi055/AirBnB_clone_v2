@@ -20,7 +20,7 @@ class State(BaseModel, Base):
 
     def __init__(self, *args, **kwargs):
         """ Initializes state """
-        super().__int__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     if getenv('HBNB_TYPE_STORAGE') != 'db':
         @property
