@@ -18,7 +18,7 @@ def close_database(exc):
 def states():
     """ Render state_list html page to display States created """
     states = storage.all("State")
-    return render_template('9-states.html', states=states)
+    return render_template('9-states.html', state=states)
 
 
 @app.route('/states/<id>', strict_slashes=False)
