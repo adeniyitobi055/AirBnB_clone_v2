@@ -14,14 +14,14 @@ def close_database(exc):
     storage.close()
 
 
-@app.route("/states", strict_slashes=False)
+@app.route('/states', strict_slashes=False)
 def states():
     """ Render state_list html page to display States created """
     states = storage.all("State")
     return render_template('9-states.html', states=states)
 
 
-@app.route("/states/<id>", strict_slashes=False)
+@app.route('/states/<id>', strict_slashes=False)
 def cities_by_states(id):
     """
     Display a HTML page: (inside the tag BODY)
